@@ -11,9 +11,9 @@ create table website (
 --changeset Katerina163:2
 create table page (
     id         serial primary key,
-    path       varchar not null,
-    code       varchar not null,
-    website_id int     not null references website (id),
-    unique (path, website_id)
+    path       varchar not null unique,
+    code       varchar not null unique,
+    count      int     not null,
+    website_id int     not null references website (id)
 );
 --rollback drop table page;
