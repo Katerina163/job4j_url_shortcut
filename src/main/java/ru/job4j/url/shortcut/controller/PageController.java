@@ -4,7 +4,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import ru.job4j.url.shortcut.dto.*;
+import ru.job4j.url.shortcut.dto.request.ConvertUrlDto;
+import ru.job4j.url.shortcut.dto.request.LoginDto;
+import ru.job4j.url.shortcut.dto.request.SiteDto;
+import ru.job4j.url.shortcut.dto.response.CodeDto;
+import ru.job4j.url.shortcut.dto.response.RegistrationDto;
+import ru.job4j.url.shortcut.dto.response.StatisticDto;
 import ru.job4j.url.shortcut.service.PageService;
 import ru.job4j.url.shortcut.service.WebsiteService;
 

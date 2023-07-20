@@ -1,9 +1,9 @@
 package ru.job4j.url.shortcut.service;
 
-import ru.job4j.url.shortcut.dto.LoginDto;
-import ru.job4j.url.shortcut.dto.RegistrationDto;
-import ru.job4j.url.shortcut.dto.SiteDto;
-import ru.job4j.url.shortcut.dto.StatisticDto;
+import ru.job4j.url.shortcut.dto.request.LoginDto;
+import ru.job4j.url.shortcut.dto.response.RegistrationDto;
+import ru.job4j.url.shortcut.dto.request.SiteDto;
+import ru.job4j.url.shortcut.dto.response.StatisticDto;
 
 import java.util.List;
 import java.util.Optional;

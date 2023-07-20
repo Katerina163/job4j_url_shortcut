@@ -1,4 +1,4 @@
-package ru.job4j.url.shortcut.dto;
+package ru.job4j.url.shortcut.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package ru.job4j.url.shortcut.service;
 
-import ru.job4j.url.shortcut.dto.CodeDto;
-import ru.job4j.url.shortcut.dto.ConvertUrlDto;
+import ru.job4j.url.shortcut.dto.response.CodeDto;
+import ru.job4j.url.shortcut.dto.request.ConvertUrlDto;
 
 import java.util.Optional;
 

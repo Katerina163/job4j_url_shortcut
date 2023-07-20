@@ -8,10 +8,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.job4j.url.shortcut.dto.LoginDto;
-import ru.job4j.url.shortcut.dto.RegistrationDto;
-import ru.job4j.url.shortcut.dto.SiteDto;
-import ru.job4j.url.shortcut.dto.StatisticDto;
+import ru.job4j.url.shortcut.dto.request.LoginDto;
+import ru.job4j.url.shortcut.dto.response.RegistrationDto;
+import ru.job4j.url.shortcut.dto.request.SiteDto;
+import ru.job4j.url.shortcut.dto.response.StatisticDto;
 import ru.job4j.url.shortcut.model.Website;
 import ru.job4j.url.shortcut.repository.WebsiteRepository;
 

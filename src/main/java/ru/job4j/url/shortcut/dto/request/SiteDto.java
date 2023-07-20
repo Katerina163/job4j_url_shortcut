@@ -1,4 +1,4 @@
-package ru.job4j.url.shortcut.dto;
+package ru.job4j.url.shortcut.dto.request;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
