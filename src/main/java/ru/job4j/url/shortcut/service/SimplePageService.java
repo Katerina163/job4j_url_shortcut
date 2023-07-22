@@ -3,10 +3,10 @@ package ru.job4j.url.shortcut.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.job4j.url.shortcut.dto.response.CodeDto;
 import ru.job4j.url.shortcut.dto.request.ConvertUrlDto;
+import ru.job4j.url.shortcut.dto.response.CodeDto;
+import ru.job4j.url.shortcut.mapper.Mapper;
 import ru.job4j.url.shortcut.model.Page;
-import ru.job4j.url.shortcut.random.GeneratorRandomString;
 import ru.job4j.url.shortcut.repository.PageRepository;
 import ru.job4j.url.shortcut.repository.WebsiteRepository;
 
@@ -18,18 +18,16 @@ import java.util.Optional;
 public class SimplePageService implements PageService {
     private WebsiteRepository websiteRepository;
     private PageRepository pageRepository;
+    private Mapper<ConvertUrlDto, Page> mapper;
 
     @Override
     public Optional<CodeDto> getCode(ConvertUrlDto convert) {
         String[] arr = convert.getUrl().split("/");
         var site = websiteRepository.findByDomainWithPages(arr[2]).orElseThrow(
                 () -> new IllegalArgumentException("Некорректный домен"));
-        var page = new Page();
-        page.setPath(convert.getUrl());
-        String code = GeneratorRandomString.generate();
-        page.setCode(code);
-        site.addPage(page);
-        return Optional.of(new CodeDto(code));
+        var page = Optional.of(convert).map(mapper::convert);
+        site.addPage(page.get());
+        return Optional.of(new CodeDto(page.get().getCode()));
     }
 
     @Override

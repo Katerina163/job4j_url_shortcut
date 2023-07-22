@@ -12,6 +12,8 @@ import ru.job4j.url.shortcut.dto.request.LoginDto;
 import ru.job4j.url.shortcut.dto.request.SiteDto;
 import ru.job4j.url.shortcut.dto.response.RegistrationDto;
 import ru.job4j.url.shortcut.dto.response.StatisticDto;
+import ru.job4j.url.shortcut.mapper.Mapper;
+import ru.job4j.url.shortcut.model.Page;
 import ru.job4j.url.shortcut.model.Website;
 import ru.job4j.url.shortcut.repository.WebsiteRepository;
 
@@ -26,32 +28,38 @@ import static java.util.Collections.emptyList;
 public class SimpleWebsiteService implements WebsiteService, UserDetailsService {
     private final WebsiteRepository websiteRepository;
     private final BCryptPasswordEncoder encoder;
+    private final Mapper<Page, StatisticDto> pageMapper;
+    private final Mapper<Website, RegistrationDto> webMapper;
 
-    public SimpleWebsiteService(WebsiteRepository websiteRepository, @Lazy BCryptPasswordEncoder encoder) {
+    public SimpleWebsiteService(WebsiteRepository websiteRepository,
+                                @Lazy BCryptPasswordEncoder encoder,
+                                Mapper<Page, StatisticDto> pageStatisticDtoMapper,
+                                Mapper<Website, RegistrationDto> websiteRegistrationDtoMapper) {
         this.websiteRepository = websiteRepository;
         this.encoder = encoder;
+        pageMapper = pageStatisticDtoMapper;
+        webMapper = websiteRegistrationDtoMapper;
     }
 
     @Override
     public Optional<RegistrationDto> registration(SiteDto site) {
         var optional = websiteRepository.findByDomain(site.site());
         if (optional.isPresent()) {
-            return Optional.of(new RegistrationDto(
-                    false, optional.get().getLogin(), optional.get().getPassword()));
+            return optional.map(webMapper::convert);
         }
         var website = new Website();
         website.setLogin(UUID.randomUUID().toString());
         var password = UUID.randomUUID().toString();
         website.setPassword(encoder.encode(password));
         website.setDomain(site.site());
-        var result = websiteRepository.save(website);
-        return Optional.of(new RegistrationDto(true, result.getLogin(), password));
+        var result = Optional.of(websiteRepository.save(website)).map(webMapper::convert);
+        result.get().setRegistration(true);
+        return result;
     }
 
     @Override
     public List<StatisticDto> getStatistic(String login) {
-        return websiteRepository.findByWebsiteLogin(login)
-                .stream().map(page -> new StatisticDto(page.getPath(), page.getCount())).toList();
+        return websiteRepository.findByWebsiteLogin(login).stream().map(pageMapper::convert).toList();
     }
 
     @Override
