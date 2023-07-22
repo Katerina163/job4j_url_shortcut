@@ -1,6 +1,6 @@
 package ru.job4j.url.shortcut.service;
 
-import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,8 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.url.shortcut.dto.request.LoginDto;
-import ru.job4j.url.shortcut.dto.response.RegistrationDto;
 import ru.job4j.url.shortcut.dto.request.SiteDto;
+import ru.job4j.url.shortcut.dto.response.RegistrationDto;
 import ru.job4j.url.shortcut.dto.response.StatisticDto;
 import ru.job4j.url.shortcut.model.Website;
 import ru.job4j.url.shortcut.repository.WebsiteRepository;
@@ -22,11 +22,15 @@ import java.util.UUID;
 import static java.util.Collections.emptyList;
 
 @Service
-@AllArgsConstructor
 @Transactional
 public class SimpleWebsiteService implements WebsiteService, UserDetailsService {
-    private WebsiteRepository websiteRepository;
-    private BCryptPasswordEncoder encoder;
+    private final WebsiteRepository websiteRepository;
+    private final BCryptPasswordEncoder encoder;
+
+    public SimpleWebsiteService(WebsiteRepository websiteRepository, @Lazy BCryptPasswordEncoder encoder) {
+        this.websiteRepository = websiteRepository;
+        this.encoder = encoder;
+    }
 
     @Override
     public Optional<RegistrationDto> registration(SiteDto site) {

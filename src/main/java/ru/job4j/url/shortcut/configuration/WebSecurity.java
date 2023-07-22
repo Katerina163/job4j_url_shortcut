@@ -1,6 +1,7 @@
 package ru.job4j.url.shortcut.configuration;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,11 +21,9 @@ import static ru.job4j.url.shortcut.filter.JWTAuthenticationFilter.REGISTER_URL;
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
     private final UserDetailsService service;
-    private final BCryptPasswordEncoder encoder;
 
-    public WebSecurity(UserDetailsService simpleWebsiteService, BCryptPasswordEncoder encoder) {
+    public WebSecurity(@Lazy UserDetailsService simpleWebsiteService) {
         service = simpleWebsiteService;
-        this.encoder = encoder;
     }
 
     @Override
@@ -42,7 +41,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(service).passwordEncoder(encoder);
+        auth.userDetailsService(service).passwordEncoder(encoder());
     }
 
     @Bean
@@ -50,5 +49,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
+    }
+
+    @Bean
+    public BCryptPasswordEncoder encoder() {
+        return new BCryptPasswordEncoder(10);
     }
 }
