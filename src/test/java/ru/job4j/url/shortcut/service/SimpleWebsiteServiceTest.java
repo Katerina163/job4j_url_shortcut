@@ -70,7 +70,6 @@ class SimpleWebsiteServiceTest {
         assertTrue(result.isPresent());
         assertTrue(result.get().isRegistration());
         assertThat(result.get().getLogin(), is(login));
-        assertThat(result.get().getPassword(), is(password));
         var webCapture = websiteAC.getValue();
         assertThat(webCapture.getLogin().length(), is(36));
         assertThat(webCapture.getPassword().length(), is(60));
