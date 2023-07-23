@@ -38,7 +38,7 @@ public class UrlController {
 
     @GetMapping("/redirect/{code}")
     public ResponseEntity<Void> getRedirect(@NotBlank
-                                            @Size(min = 10, max = 10)
+                                            @Size(min = 9, max = 11)
                                             @PathVariable
                                             String code) {
         var url = pageService.findPath(code);
