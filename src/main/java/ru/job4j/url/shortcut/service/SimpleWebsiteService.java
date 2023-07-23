@@ -54,6 +54,7 @@ public class SimpleWebsiteService implements WebsiteService, UserDetailsService 
         website.setDomain(site.site());
         var result = Optional.of(websiteRepository.save(website)).map(webMapper::convert);
         result.get().setRegistration(true);
+        result.get().setPassword(password);
         return result;
     }
 
