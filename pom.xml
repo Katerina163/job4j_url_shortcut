@@ -20,7 +20,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
-        <docker_db_url_jdbc>${JDBC_URL}</docker_db_url_jdbc>
+        <docker_db_url>${SPRING_DATASOURCE_URL}</docker_db_url>
     </properties>
 
     <profiles>
@@ -49,7 +49,7 @@
             <id>docker</id>
             <properties>
                 <liquibase.changeLogFile>db/dbchangelog.xml</liquibase.changeLogFile>
-                <liquibase.url>${docker_db_url_jdbc}</liquibase.url>
+                <liquibase.url>${docker_db_url}</liquibase.url>
                 <liquibase.username>postgres</liquibase.username>
                 <liquibase.password>password</liquibase.password>
             </properties>
