@@ -28,7 +28,8 @@
 
 <h3>Сборка</h3>
 <div>
-Осуществляется через <img src="https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=purple">
+Осуществляется через <img src="https://img.shields.io/badge/Docker-00fff9?style=for-the-badge&logo=docker&logoColor=blue">
+  
   </div>
 
 <h3>Дальнейшее развитие проекта</h3>
