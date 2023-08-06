@@ -46,8 +46,12 @@ class SimplePageServiceTest {
     @Test
     public void whenGetCode() {
         var str = "https://github.com/Katerina163";
+        var page = new Page();
+        page.setId(1);
         var code = "dDKS8sh&S";
-        when(pageRepository.findPathByCode(code)).thenReturn(str);
+        page.setPath(str);
+        page.setCount(1);
+        when(pageRepository.findPathByCode(code)).thenReturn(page);
 
         var result = service.findPath(code);
 

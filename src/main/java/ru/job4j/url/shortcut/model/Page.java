@@ -4,8 +4,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.OptimisticLockType;
-import org.hibernate.annotations.OptimisticLocking;
 
 import javax.persistence.*;
 
@@ -14,7 +12,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@OptimisticLocking(type = OptimisticLockType.VERSION)
 public class Page {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +23,6 @@ public class Page {
     @EqualsAndHashCode.Include
     private String code;
 
-    @Version
     private Integer count = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)

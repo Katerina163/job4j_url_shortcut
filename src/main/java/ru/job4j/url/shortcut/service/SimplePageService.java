@@ -26,12 +26,16 @@ public class SimplePageService implements PageService {
         var site = websiteRepository.findByDomainWithPages(arr[2]).orElseThrow(
                 () -> new IllegalArgumentException("Некорректный домен"));
         var page = Optional.of(convert).map(mapper::convert);
-        site.addPage(page.get());
+        site.addPage(page.get()); 
         return Optional.of(new CodeDto(page.get().getCode()));
     }
 
     @Override
     public String findPath(String code) {
-        return pageRepository.findPathByCode(code);
+        var result = pageRepository.findPathByCode(code);
+        int stat = result.getCount();
+        stat++;
+        pageRepository.incrementCount(stat, result.getId());
+        return result.getPath();
     }
 }
