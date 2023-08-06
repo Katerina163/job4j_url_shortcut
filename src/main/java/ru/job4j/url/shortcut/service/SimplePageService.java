@@ -32,7 +32,7 @@ public class SimplePageService implements PageService {
 
     @Override
     public String findPath(String code) {
-        var result = pageRepository.findPathByCode(code);
+        var result = pageRepository.findByCode(code);
         int stat = result.getCount();
         stat++;
         pageRepository.incrementCount(stat, result.getId());

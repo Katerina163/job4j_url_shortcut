@@ -12,6 +12,5 @@ public interface PageRepository extends CrudRepository<Page, Integer> {
     @Query(value = "update page set count = :count where id = :id", nativeQuery = true)
     void incrementCount(int count, int id);
 
-    @Query("from Page where code = :code")
-    Page findPathByCode(String code);
+    Page findByCode(String code);
 }

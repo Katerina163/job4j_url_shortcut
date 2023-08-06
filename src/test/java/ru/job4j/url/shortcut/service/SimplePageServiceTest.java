@@ -51,7 +51,7 @@ class SimplePageServiceTest {
         var code = "dDKS8sh&S";
         page.setPath(str);
         page.setCount(1);
-        when(pageRepository.findPathByCode(code)).thenReturn(page);
+        when(pageRepository.findByCode(code)).thenReturn(page);
 
         var result = service.findPath(code);
 
