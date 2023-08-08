@@ -1,6 +1,7 @@
 package ru.job4j.url.shortcut.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.url.shortcut.dto.request.ConvertUrlDto;
@@ -14,28 +15,27 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-@Transactional
 public class SimplePageService implements PageService {
     private WebsiteRepository websiteRepository;
     private PageRepository pageRepository;
     private Mapper<ConvertUrlDto, Page> mapper;
 
+    @Transactional
     @Override
     public Optional<CodeDto> getCode(ConvertUrlDto convert) {
         String[] arr = convert.getUrl().split("/");
         var site = websiteRepository.findByDomainWithPages(arr[2]).orElseThrow(
                 () -> new IllegalArgumentException("Некорректный домен"));
         var page = Optional.of(convert).map(mapper::convert);
-        site.addPage(page.get()); 
+        site.addPage(page.get());
         return Optional.of(new CodeDto(page.get().getCode()));
     }
 
+    @Transactional
+    @Retryable
     @Override
     public String findPath(String code) {
         var result = pageRepository.findByCode(code);
-        int stat = result.getCount();
-        stat++;
-        pageRepository.incrementCount(stat, result.getId());
         return result.getPath();
     }
 }
