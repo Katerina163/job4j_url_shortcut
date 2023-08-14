@@ -1,9 +1,9 @@
 
 <h3><b>Стек технологий:</b></h3>
-<p><img src="https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white"/> boot (v.2.7.13),</p>
+<p><img src="https://img.shields.io/badge/spring%20boot-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white"/> (v.2.7.13),</p>
 <p><img src="https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=Hibernate&logoColor=orange"/> (v.5.6.15.Final),</p>
 <p><img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=black"/> (v.42.6.0),</p>
-<p>Liquibase (v.4.22.0).</p>
+<p><img src="https://img.shields.io/badge/liquibase-0000ff.svg?style=for-the-badge&logo=liquibase&logoColor=white"/> (v.4.22.0).</p>
 <h3>О проекте</h3>
 Сервис представляет собой решение для обеспечения безопасности пользователей в сети. Для достижения этой цели все ссылки на сайт заменяются ссылками на сервис, который работает через REST API. Описание процесса:
 <h4><p><b>1. Регистрация сайта:</b></p></h4>
@@ -34,7 +34,7 @@
 
 <h3>Дальнейшее развитие проекта</h3>
 <ul>
-  <li>Реализовать сайт</li>
+  <li>Реализовать сайт для удобной регистрации сайта </li>
   <li>Дописать тесты</li>
   <li>Написать JavaDoc</li>  
 </ul>
